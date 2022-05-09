@@ -2,6 +2,7 @@ package com.example.myjetareader.navigation
 
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
@@ -11,6 +12,7 @@ import com.example.myjetareader.screens.ReaderSplashScreen
 import com.example.myjetareader.screens.home.Home
 import com.example.myjetareader.screens.login.ReaderLoginScreen
 
+@ExperimentalComposeUiApi
 @Composable
 fun ReaderNavigation() {
     val navController = rememberNavController()

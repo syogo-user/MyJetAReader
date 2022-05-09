@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -44,8 +45,8 @@ fun ReaderLoginScreen(navController: NavController) {
             verticalArrangement = Arrangement.Center
         ) {
             ReaderLogo()
-            UserForm(loading = false, isCreateAccount = false) { email ,pwd ->
-                Log.d("Form", "ReaderLoginScreen: $email @password")
+            UserForm(loading = false, isCreateAccount = false) { email, pwd ->
+                Log.d("Form", "ReaderLoginScreen: $email , $pwd")
             }
         }
     }
@@ -93,8 +94,36 @@ fun UserForm(
                 onDone(email.value.trim(), password.value.trim())
             }
         )
-    }
 
+        SubmitButton(
+            textId = if (isCreateAccount) "Create Account" else "Login",
+            loading = loading,
+            validInputs = valid,
+        ) {
+            onDone(email.value.trim(), password.value.trim())
+        }
+    }
+}
+
+@Composable
+fun SubmitButton(
+    textId: String,
+    loading: Boolean,
+    validInputs: Boolean,
+    onClick: () -> Unit
+) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .padding(3.dp)
+            .fillMaxWidth(),
+        enabled = !loading && validInputs,
+        shape = CircleShape
+    ) {
+        if (loading) CircularProgressIndicator(modifier = Modifier.size(25.dp))
+        else Text(text = textId, modifier = Modifier.padding(5.dp))
+
+    }
 }
 
 
