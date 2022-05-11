@@ -38,11 +38,15 @@ import com.example.myjetareader.R
 import com.example.myjetareader.components.EmailInput
 import com.example.myjetareader.components.PasswordInput
 import com.example.myjetareader.components.ReaderLogo
+import com.example.myjetareader.navigation.ReaderScreens
 
 
 @ExperimentalComposeUiApi
 @Composable
-fun ReaderLoginScreen(navController: NavController) {
+fun ReaderLoginScreen(
+    navController: NavController,
+    viewModel: LoginScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+) {
     val showLoginForm = rememberSaveable {
         mutableStateOf(true)
     }
@@ -59,6 +63,10 @@ fun ReaderLoginScreen(navController: NavController) {
             ) { email, pwd ->
                 Log.d("Form", "ReaderLoginScreen: $email , $pwd")
                 // Todo: create FB login
+                viewModel.signInWithEmailAndPassword(email, pwd) {
+                    // ログイン処理後 NavController.ktのcomposable(ReaderScreens.ReaderHomeScreen.name){}に処理が飛び、そこで呼び出しているHomeに画面遷移する
+                    navController.navigate(ReaderScreens.ReaderHomeScreen.name)
+                }
             }
             else {
                 UserForm(loading = false, isCreateAccount = true) { email, pwd ->
@@ -117,7 +125,7 @@ fun UserForm(
                 text = stringResource(id = R.string.create_acct),
                 modifier = Modifier.padding(4.dp)
             )
-        else 
+        else
             Text(text = "")
         EmailInput(
             emailState = email,
