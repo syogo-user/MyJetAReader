@@ -61,8 +61,6 @@ fun ReaderLoginScreen(
                 loading = false,
                 isCreateAccount = false
             ) { email, pwd ->
-                Log.d("Form", "ReaderLoginScreen: $email , $pwd")
-                // Todo: create FB login
                 viewModel.signInWithEmailAndPassword(email, pwd) {
                     // ログイン処理後 NavController.ktのcomposable(ReaderScreens.ReaderHomeScreen.name){}に処理が飛び、そこで呼び出しているHomeに画面遷移する
                     navController.navigate(ReaderScreens.ReaderHomeScreen.name)
@@ -70,7 +68,9 @@ fun ReaderLoginScreen(
             }
             else {
                 UserForm(loading = false, isCreateAccount = true) { email, pwd ->
-                    // Todo: create FB account
+                    viewModel.createUserWithEmailAndPassword(email, pwd) {
+                        navController.navigate(ReaderScreens.ReaderHomeScreen.name)
+                    }
                 }
             }
         }
