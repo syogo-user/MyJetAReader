@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myjetareader.components.ReaderLogo
 import com.example.myjetareader.navigation.ReaderScreens
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
 
 
@@ -47,6 +48,11 @@ fun ReaderSplashScreen(navController: NavController) {
         delay(2000L)
 
         // 次に遷移する画面
+//        if (FirebaseAuth.getInstance().currentUser?.email.isNullOrBlank()) {
+//            navController.navigate(ReaderScreens.LoginScreen.name)
+//        } else {
+//            navController.navigate(ReaderScreens.ReaderHomeScreen.name)
+//        }
         navController.navigate(ReaderScreens.LoginScreen.name)
     }
 
