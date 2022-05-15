@@ -57,15 +57,16 @@ fun ReaderLoginScreen(
             verticalArrangement = Arrangement.Top
         ) {
             ReaderLogo()
-            if (showLoginForm.value) UserForm(
-                loading = false,
-                isCreateAccount = false
-            ) { email, pwd ->
-                viewModel.signInWithEmailAndPassword(email, pwd) {
-                    // ログイン処理後 NavController.ktのcomposable(ReaderScreens.ReaderHomeScreen.name){}に処理が飛び、そこで呼び出しているHomeに画面遷移する
-                    navController.navigate(ReaderScreens.ReaderHomeScreen.name)
+            if (showLoginForm.value)
+                UserForm(
+                    loading = false,
+                    isCreateAccount = false
+                ) { email, pwd ->
+                    viewModel.signInWithEmailAndPassword(email, pwd) {
+                        // ログイン処理後 NavController.ktのcomposable(ReaderScreens.ReaderHomeScreen.name){}に処理が飛び、そこで呼び出しているHomeに画面遷移する
+                        navController.navigate(ReaderScreens.ReaderHomeScreen.name)
+                    }
                 }
-            }
             else {
                 UserForm(loading = false, isCreateAccount = true) { email, pwd ->
                     viewModel.createUserWithEmailAndPassword(email, pwd) {
