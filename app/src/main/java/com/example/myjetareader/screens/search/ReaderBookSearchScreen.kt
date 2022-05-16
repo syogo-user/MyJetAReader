@@ -102,7 +102,11 @@ fun BookRow(book: MBook, navController: NavController) {
                 "http://books.google.com/books/content?id=uGfvDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
             Image(
                 painter = rememberImagePainter(data = imageUrl),
-                contentDescription = "book image"
+                contentDescription = "book image",
+                modifier = Modifier
+                    .width(80.dp)
+                    .fillMaxHeight()
+                    .padding(end = 4.dp)
             )
             Column {
                 Text(text = book.title.toString(), overflow = TextOverflow.Ellipsis)
