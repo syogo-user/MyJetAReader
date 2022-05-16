@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -236,7 +237,7 @@ fun ListCard(
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = book.authors.toString() ,
+                text = book.authors.toString(),
                 modifier = Modifier.padding(4.dp),
                 style = MaterialTheme.typography.caption
             )
@@ -250,6 +251,7 @@ fun ListCard(
     }
 
 }
+
 @Preview
 @Composable
 fun RoundedButton(
@@ -284,10 +286,11 @@ fun RoundedButton(
 @Composable
 fun ReaderAppBar(
     title: String,
+    icon: ImageVector? = null,
     showProfile: Boolean = true,
     navController: NavController,
-
-    ) {
+    onBackArrowClicked: () -> Unit = {}
+) {
     TopAppBar(
         title = {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -300,6 +303,12 @@ fun ReaderAppBar(
                             .scale(0.9f)
                     )
                 }
+                if (icon != null) {
+                    Icon(imageVector = icon, contentDescription = "arrow back",
+                        tint = Color.Red.copy(alpha = 0.7f),
+                        modifier = Modifier.clickable { onBackArrowClicked.invoke() })
+                }
+                Spacer(modifier = Modifier.width(40.dp))
                 Text(
                     text = title,
                     color = Color.Red.copy(alpha = 0.7f),
@@ -308,7 +317,7 @@ fun ReaderAppBar(
                         fontSize = 20.sp
                     )
                 )
-                Spacer(modifier = Modifier.width(150.dp))
+
 
 
             }
@@ -319,12 +328,13 @@ fun ReaderAppBar(
                     navController.navigate(ReaderScreens.LoginScreen.name)
                 }
             }) {
-                Icon(
-                    imageVector = Icons.Filled.Logout,
-                    contentDescription = "Logout",
+                if (showProfile) Row() {
+                    Icon(
+                        imageVector = Icons.Filled.Logout,
+                        contentDescription = "Logout",
 //                    tint = Color.Gray.copy(alpha = 0.4f)
-                )
-
+                    )
+                } else Box {}
             }
         },
         backgroundColor = Color.Transparent,

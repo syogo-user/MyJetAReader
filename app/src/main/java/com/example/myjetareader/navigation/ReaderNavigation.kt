@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myjetareader.screens.ReaderSplashScreen
 import com.example.myjetareader.screens.home.Home
 import com.example.myjetareader.screens.login.ReaderLoginScreen
+import com.example.myjetareader.screens.search.SearchScreen
 import com.example.myjetareader.screens.stats.ReaderStatsScreen
 
 @ExperimentalComposeUiApi
@@ -37,6 +38,10 @@ fun ReaderNavigation() {
 
         composable(ReaderScreens.ReaderHomeScreen.name) {
             Home(navController = navController)
+        }
+
+        composable(ReaderScreens.SearchScreen.name) {
+            SearchScreen(navController = navController)
         }
 
     }

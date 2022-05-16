@@ -57,23 +57,26 @@ fun ReaderLoginScreen(
             verticalArrangement = Arrangement.Top
         ) {
             ReaderLogo()
-            if (showLoginForm.value)
-                UserForm(
-                    loading = false,
-                    isCreateAccount = false
-                ) { email, pwd ->
-                    viewModel.signInWithEmailAndPassword(email, pwd) {
-                        // ログイン処理後 NavController.ktのcomposable(ReaderScreens.ReaderHomeScreen.name){}に処理が飛び、そこで呼び出しているHomeに画面遷移する
-                        navController.navigate(ReaderScreens.ReaderHomeScreen.name)
-                    }
-                }
-            else {
-                UserForm(loading = false, isCreateAccount = true) { email, pwd ->
-                    viewModel.createUserWithEmailAndPassword(email, pwd) {
-                        navController.navigate(ReaderScreens.ReaderHomeScreen.name)
-                    }
-                }
-            }
+
+            // Todo: 後でコメントアウトを戻す
+            navController.navigate(ReaderScreens.ReaderHomeScreen.name) // Todo: この行は削除
+//            if (showLoginForm.value)
+//                UserForm(
+//                    loading = false,
+//                    isCreateAccount = false
+//                ) { email, pwd ->
+//                    viewModel.signInWithEmailAndPassword(email, pwd) {
+//                        // ログイン処理後 NavController.ktのcomposable(ReaderScreens.ReaderHomeScreen.name){}に処理が飛び、そこで呼び出しているHomeに画面遷移する
+//                        navController.navigate(ReaderScreens.ReaderHomeScreen.name)
+//                    }
+//                }
+//            else {
+//                UserForm(loading = false, isCreateAccount = true) { email, pwd ->
+//                    viewModel.createUserWithEmailAndPassword(email, pwd) {
+//                        navController.navigate(ReaderScreens.ReaderHomeScreen.name)
+//                    }
+//                }
+//            }
         }
         Spacer(modifier = Modifier.height(15.dp))
         Row(
